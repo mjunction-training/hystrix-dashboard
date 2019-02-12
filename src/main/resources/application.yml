@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: hystrix-dashboard
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL:http://localhost:8082}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka}
+ 
+
+server:
+  port: ${appPort:8084}
+  
+    
+management:
+  health:
+    defaults:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown: 
+      enabled: true
+      
+# Logging
+logging:
+  pattern:
+    console: "[%-5level] %date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %logger{15}#%line %msg\n"
+  level:
+    root: DEBUG
+    com.training.mjunction.usersvcs: DEBUG
+    org.springframework: ERROR
+    org.hibernate: DEBUG
+    sun.rmi: ERROR
+    org.reflections: ERROR
+    sun.reflect: ERROR
+    org.apache.coyote.http11: ERROR
+    org.glassfish.jersey.internal.util: ERROR
+    org.apache.tomcat.util: ERROR
+    org.apache.catalina.core: ERROR
+    com.sun.jersey.server.impl: ERROR
