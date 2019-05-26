@@ -7,8 +7,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import brave.sampler.Sampler;
 
 @Controller
 @EnableAutoConfiguration
@@ -30,4 +33,9 @@ public class Application extends SpringBootServletInitializer {
 	public static void main(final String[] args) {
 		new SpringApplicationBuilder(Application.class).web(WebApplicationType.SERVLET).run(args);
 	}
+	
+	@Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
+    }
 }
